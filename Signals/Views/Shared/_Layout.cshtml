@@ -4,20 +4,15 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - Signals</title>
+    <link href="@Url.Content("~/css/style.css")" rel="stylesheet" type="text/css" />
 </head>
 <body>
-    <header>
-        There was a header with bootstrap things. I don't need it.
-    </header>
-    <div class="container">
-        <main role="main">
-            @RenderBody()
-        </main>
-    </div>
-
-    <footer class="border-top footer text-muted">
+    <main>
+        @RenderBody()
+    </main>
+    <footer class="footer">
         <div>
-            &copy; 2020 - Signals - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            <a asp-area="" asp-controller="Home" asp-action="Privacy">< click me ></a>
         </div>
     </footer>
 </body>
