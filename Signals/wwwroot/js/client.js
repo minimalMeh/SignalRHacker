@@ -18,7 +18,8 @@ sendNewMessage = () => {
 document.querySelector(queryStringForInput).addEventListener("keyup", event => {
     const inputMessage = document.querySelector(queryStringForInput);
     if (inputMessage.value === null || inputMessage.value === undefined
-        || inputMessage.value === "" || inputMessage.value === "хд") {
+        || inputMessage.value === "" || inputMessage.value === "хд"
+        || !inputMessage.value.trim().length) {
         return;
     }
 
