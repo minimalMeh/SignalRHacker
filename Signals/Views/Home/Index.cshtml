@@ -1,18 +1,25 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
 }
-
-<section class="header">
-    <div class="header_welcome blink">
-        Welcome
+    <div class="page">
+        <main>
+            <section class="header">
+                <div class="header_welcome blink">
+                    Welcome
+                </div>
+            </section>
+            <section class="content">
+                <div class="content_chat">
+                    <div class="content_chat--content">
+                    </div>
+                    <div class="content_chat--input">
+                        <input name="new_message" type="text" />
+                    </div>
+                </div>
+            </section>
+        </main>
+        <section class="users">
+            <div class="users_list">
+            </div>
+        </section>
     </div>
-</section>
-<section class="content">
-    <div class="content_chat">
-        <div class="content_chat--content">
-        </div>
-        <div class="content_chat--input">
-            <input name="new_message" type="text" />
-        </div>
-    </div>
-</section>
