@@ -8,9 +8,9 @@ namespace Signals.Services
 {
     public class ChatHub : Hub
     {
-        public async Task Send(string message)
+        public Task Send(string message)
         {
-            await this.Clients.All.SendAsync("Send", message);
+            return this.Clients.All.SendAsync("Send", message);
         }
     }
 }
