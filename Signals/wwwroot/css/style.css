@@ -3,10 +3,15 @@
     src: url("../fonts/Pixeled.ttf");
 }
 
+html {
+    height: 100%;
+}
+
 body {
     font-family: 'Pixeled';
     background-color: black;
     width: 70%;
+    height: 100%;
     margin: 0 auto;
 }
 
@@ -37,15 +42,14 @@ main {
 }
 
 .content {
-
 }
 
 .content_chat {
 }
 
 .content_chat--content {
+    height: 500px;
     padding: 20px 20px 0 20px;
-    height: 300px;
     display: flex;
     flex-direction: column-reverse;
     overflow-y: scroll;
