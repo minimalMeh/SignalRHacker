@@ -36,12 +36,17 @@ const sendNewMessage = () => {
     hubConnection.invoke("Send", message);
 }
 
-const newUserEntered = () => {
-
+const newUserEntered = (userName) => {
+    let userData = document.createElement("p");
+    userData.classList.add(/*"class"*/);
+    userData.appendChild(document.createTextNode(data));
+    let lastElement = document.querySelector(/*"class"*/).lastChild;
+    document.querySelector(/*"class"*/).insertAfter(userData, lastElement);
 }
 
-const userLeft = () => {
-
+const userLeft = (userName) => {
+    let userList = document.querySelector(/*"class"*/);
+    //userList.childNodes. found how to detect user
 }
 
 hubConnection.start();
