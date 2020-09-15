@@ -17,20 +17,12 @@ document.querySelector(queryStringForInput).addEventListener("keyup", event => {
 });
 
 hubConnection.on("Send", data => {
-    let message = document.createElement("p");
+    const message = document.createElement("p");
     message.classList.add("content_chat--content--message");
     message.appendChild(document.createTextNode(data));
-    let firstElement = document.querySelector(".content_chat--content").firstChild;
+    const firstElement = document.querySelector(".content_chat--content").firstChild;
     document.querySelector(".content_chat--content").insertBefore(message, firstElement);
 });
-
-hubConnection.on("NewUser", data => {
-
-})
-
-hubConnection.on("UserLeft", data => {
-
-})
 
 const sendNewMessage = () => {
     let message = document.querySelector(queryStringForInput).value;
@@ -38,16 +30,23 @@ const sendNewMessage = () => {
 }
 
 const newUserEntered = (userName) => {
-    let userData = document.createElement("p");
-    userData.classList.add(/*"class"*/);
-    userData.appendChild(document.createTextNode(data));
-    let lastElement = document.querySelector(/*"class"*/).lastChild;
-    document.querySelector(/*"class"*/).insertAfter(userData, lastElement);
+    const userData = document.createElement("p");
+    userData.classList.add("users_list--user");
+    userData.appendChild(document.createTextNode(userName));
+    const usersList = document.querySelector(".users_list");
+    const lastElement = usersList.lastChild;
+    usersList.insertBefore(userData, lastElement);
 }
 
 const userLeft = (userName) => {
-    let userList = document.querySelector(/*"class"*/);
-    //userList.childNodes. found how to detect user
+    const userList = document.querySelector(".users_list");
+    const users = Array.from(userList.querySelectorAll('.users_list--user'));
+    const user = users.filter(item => item.innerHTML.includes(userName))[0];
+    userList.removeChild(user);
 }
+
+hubConnection.on("NewUser", newUserEntered);
+
+hubConnection.on("UserLeft", userLeft);
 
 hubConnection.start();

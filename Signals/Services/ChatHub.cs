@@ -8,7 +8,7 @@ namespace Signals.Services
 {
     public class ChatHub : Hub
     {
-        private Dictionary<string, string> _users = new Dictionary<string, string>();
+        private static Dictionary<string, string> _users = new Dictionary<string, string>();
 
         public async Task Send(string message)
         {
@@ -17,18 +17,18 @@ namespace Signals.Services
 
         public override async Task OnConnectedAsync()
         {
-            if (this._users.Keys.Contains(Context.ConnectionId))
+            if (_users.Keys.Contains(Context.ConnectionId))
             {
                 return;
             }
 
-            this._users[Context.ConnectionId] = "an0n #" + this._users.Count;
-            await this.Clients.All.SendAsync("NewUser", this._users[Context.ConnectionId]);
+            _users[Context.ConnectionId] = "an0n #" + _users.Count;
+            await this.Clients.All.SendAsync("NewUser", _users[Context.ConnectionId]);
             await base.OnConnectedAsync();
         }
         public override async Task OnDisconnectedAsync(Exception exception)
         {
-            await this.Clients.All.SendAsync("UserLeft", this._users[Context.ConnectionId]);
+            await this.Clients.All.SendAsync("UserLeft", _users[Context.ConnectionId]);
             await base.OnDisconnectedAsync(exception);
         }
     }
