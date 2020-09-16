@@ -16,10 +16,11 @@ document.querySelector(queryStringForInput).addEventListener("keyup", event => {
     }
 });
 
-hubConnection.on("Send", data => {
+hubConnection.on("Send", (data, userName) => {
     const message = document.createElement("p");
     message.classList.add("content_chat--content--message");
-    message.appendChild(document.createTextNode(data));
+    const content = userName + " : " + data;
+    message.appendChild(document.createTextNode(content));
     const firstElement = document.querySelector(".content_chat--content").firstChild;
     document.querySelector(".content_chat--content").insertBefore(message, firstElement);
 });

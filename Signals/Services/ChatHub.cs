@@ -12,7 +12,7 @@ namespace Signals.Services
 
         public async Task Send(string message)
         {
-            await this.Clients.All.SendAsync("Send", message);
+            await this.Clients.All.SendAsync("Send", message, _users[Context.ConnectionId]);
         }
 
         public override async Task OnConnectedAsync()
