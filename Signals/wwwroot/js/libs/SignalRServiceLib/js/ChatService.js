@@ -1,4 +1,4 @@
-import { HubService } from "./HubService";
+//import { HubService } from "./HubService";
 
 export class ChatService extends HubService {
     queryStringForInput = 'input[name="new_message"]';

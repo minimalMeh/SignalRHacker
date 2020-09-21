@@ -1,6 +1,4 @@
-﻿const UserService = require('./libs/UserService.js');
-const ChatService = require('./libs/ChatService.js');
-
+﻿//import { ChatService, UserService } from "./libs/signalRservicies";
 
 const hubConnection = new signalR.HubConnectionBuilder().withUrl("/chat").build();
 const chatService = new ChatService(hubConnection);
@@ -16,7 +14,7 @@ document.querySelector(queryStringForInput).addEventListener("keyup", event => {
 
     if (event.keyCode === 13) {
         chatService.sendNewMessage();
-        document.querySelector(queryStringForInput).value = "";
+        document.querySelector(queryStringForInput).value = "s";
     }
 });
 
@@ -33,4 +31,3 @@ userService.getConnectedUsers();
 chatService.getSavedMessages();
 
 //Before start checking initializaion of already existing messages and users.
-hubConnection.start();

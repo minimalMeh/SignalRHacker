@@ -1,7 +1,6 @@
-import { HubService } from "./HubService";
+//import { HubService } from "./HubService";
 
 export class UserService extends HubService {
-
     onUserEntered = (userName) => {
         let users = sessionStorage.getItem("users");
         if (users) {
@@ -49,5 +48,5 @@ export class UserService extends HubService {
             const users = Array.from(sessionStorage.getItem("users"));
             users.forEach(u => addNewUser(u));
         }
-    }
-}
+    };
+};
