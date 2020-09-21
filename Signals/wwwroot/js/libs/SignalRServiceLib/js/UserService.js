@@ -1,6 +1,4 @@
-//import { HubService } from "./HubService";
-
-export class UserService extends HubService {
+class UserService extends HubService {
     onUserEntered = (userName) => {
         let users = sessionStorage.getItem("users");
         if (users) {

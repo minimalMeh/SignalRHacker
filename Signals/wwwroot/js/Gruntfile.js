@@ -2,7 +2,7 @@ module.exports = function(grunt) {
     grunt.initConfig({
         concat: {
             options: {
-              separator: ';',
+              separator: ' ;',
             },
             dist: {
               src: ['libs/SignalRServiceLib/js/HubService.js', 'libs/SignalRServiceLib/js/ChatService.js', 'libs/SignalRServiceLib/js/UserService.js'],

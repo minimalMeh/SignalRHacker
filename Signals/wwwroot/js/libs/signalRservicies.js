@@ -1,10 +1,8 @@
-export class HubService {
+class HubService {
     constructor (hub) {
         this.hub = hub;
     };
-};;//import { HubService } from "./HubService";
-
-export class ChatService extends HubService {
+}; ;class ChatService extends HubService {
     queryStringForInput = 'input[name="new_message"]';
 
     addNewMessage = (messageContent) => {
@@ -39,9 +37,9 @@ export class ChatService extends HubService {
             messages.forEach(m => addNewMessage(m));
         }        
     };
-};//import { HubService } from "./HubService";
+}
 
-export class UserService extends HubService {
+ ;class UserService extends HubService {
     onUserEntered = (userName) => {
         let users = sessionStorage.getItem("users");
         if (users) {

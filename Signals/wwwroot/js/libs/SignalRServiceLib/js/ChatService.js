@@ -1,8 +1,5 @@
-//import { HubService } from "./HubService";
-
-export class ChatService extends HubService {
+class ChatService extends HubService {
     queryStringForInput = 'input[name="new_message"]';
-
     addNewMessage = (messageContent) => {
         let messages = sessionStorage.getItem("messages");
         if (messages) {

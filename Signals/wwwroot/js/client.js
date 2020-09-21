@@ -1,4 +1,4 @@
-﻿//import { ChatService, UserService } from "./libs/signalRservicies";
+﻿const queryStringForInput = 'input[name="new_message"]';
 
 const hubConnection = new signalR.HubConnectionBuilder().withUrl("/chat").build();
 const chatService = new ChatService(hubConnection);
@@ -30,4 +30,4 @@ userService.getConnectedUsers();
 
 chatService.getSavedMessages();
 
-//Before start checking initializaion of already existing messages and users.
+hubConnection.start();
