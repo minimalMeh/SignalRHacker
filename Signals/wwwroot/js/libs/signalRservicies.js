@@ -8,7 +8,7 @@ class HubService {
     addNewMessage = (messageContent) => {
         let messages = sessionStorage.getItem("messages");
         if (messages) {
-            users = Array.from(messages);
+            messages = Array.from(messages);
         }
 
         const message = document.createElement("p");
