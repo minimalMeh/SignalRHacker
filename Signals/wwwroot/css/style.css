@@ -3,32 +3,58 @@
     src: url("../fonts/Pixeled.ttf");
 }
 
-html {
+html, body {
     height: 100%;
 }
 
 body {
     font-family: 'Pixeled';
     background-color: black;
-    width: 70%;
-    height: 100%;
     margin: 0 auto;
+    width: 100%;
 }
 
 p {
     margin: 0;
     padding: 0;
+    word-break: break-all;
 }
 
 a, a:visited, a:hover {
     color: rgb(81, 255, 0);
 }
 
+.page {
+    display: flex;
+}
+
+.users {
+    width: 20%;
+}
+
+.users_list {
+    padding: 5px;
+}
+
+.users_list--user {
+    color: rgb(81, 255, 0);
+    font-size: 8pt;
+}
+
+    .users_list--user::before {
+        content: "> ";
+        font-size: 12pt;
+        color: rgb(81, 255, 0);
+    }
+
 main {
+    width: 100%;
+    margin-left: 10%;
     margin-top: 80px;
 }
 
 .header {
+    margin-left: 10%;
     margin-bottom: 20px;
 }
 
@@ -48,7 +74,7 @@ main {
 }
 
 .content_chat--content {
-    height: 500px;
+    height: 350px;
     padding: 20px 20px 0 20px;
     display: flex;
     flex-direction: column-reverse;
@@ -73,12 +99,12 @@ main {
     text-align: justify;
 }
 
-.content_chat--content--message::before {
-    content: '> ';
-    font-size: 15pt;
-    font-weight: bold;
-    font-family: 'Pixeled';
-}
+    .content_chat--content--message::before {
+        content: '> ';
+        font-size: 15pt;
+        font-weight: bold;
+        font-family: 'Pixeled';
+    }
 
 .footer {
     margin-top: 10px;
@@ -89,15 +115,15 @@ main {
 .blink {
     animation: blink-animation .2s infinite;
     -webkit-animation: blink-animation .2s infinite;
-  }
+}
 
-  @keyframes blink-animation {
+@keyframes blink-animation {
     to {
-      opacity: 0;
+        opacity: 0;
     }
-  }
+}
 
-  @-webkit-keyframes blink-animation {
+@-webkit-keyframes blink-animation {
     to {
         opacity: 0;
     }
@@ -106,19 +132,19 @@ main {
 /* width */
 ::-webkit-scrollbar {
     width: 5px;
-  }
-  
-  /* Track */
-  ::-webkit-scrollbar-track {
+}
+
+/* Track */
+::-webkit-scrollbar-track {
     background: black;
-  }
-  
-  /* Handle */
-  ::-webkit-scrollbar-thumb {
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
     background: rgb(81, 255, 0);
-  }
-  
-  /* Handle on hover */
-  ::-webkit-scrollbar-thumb:hover {
-    background: rgb(192, 255, 208);
-  }
+}
+
+    /* Handle on hover */
+    ::-webkit-scrollbar-thumb:hover {
+        background: rgb(192, 255, 208);
+    }
