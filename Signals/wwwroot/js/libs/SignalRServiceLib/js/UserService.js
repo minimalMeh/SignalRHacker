@@ -16,6 +16,7 @@ class UserService extends HubService {
     };
 
     getConnectedUsers = () => {
+        // TODO: override it.
         if (sessionStorage.getItem("users") !== null && sessionStorage.getItem("users") !== undefined) {
             const users = Array.from(sessionStorage.getItem("users"));
             users.forEach(u => addNewUser(u));

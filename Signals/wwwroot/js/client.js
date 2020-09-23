@@ -28,6 +28,4 @@ hubConnection.on("UserLeft", userService.onUserLeft);
 
 userService.getConnectedUsers();
 
-chatService.getSavedMessages();
-
 hubConnection.start();

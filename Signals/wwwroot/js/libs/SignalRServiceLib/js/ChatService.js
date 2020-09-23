@@ -1,5 +1,6 @@
 class ChatService extends HubService {
     queryStringForInput = 'input[name="new_message"]';
+
     addNewMessage = (messageContent) => {
         const message = document.createElement("p");
         message.classList.add("content_chat--content--message");
