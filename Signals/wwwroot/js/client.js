@@ -14,12 +14,12 @@ document.querySelector(queryStringForInput).addEventListener("keyup", event => {
 
     if (event.keyCode === 13) {
         chatService.sendNewMessage();
-        document.querySelector(queryStringForInput).value = "s";
+        document.querySelector(queryStringForInput).value = "";
     }
 });
 
 hubConnection.on("Send", (data, userName) => {
-    chatService.sendNewMessage(userName + " : " + data);
+    chatService.addNewMessage(userName + " : " + data);
 });
 
 hubConnection.on("NewUser", userService.onUserEntered);
@@ -27,7 +27,5 @@ hubConnection.on("NewUser", userService.onUserEntered);
 hubConnection.on("UserLeft", userService.onUserLeft);
 
 userService.getConnectedUsers();
-
-chatService.getSavedMessages();
 
 hubConnection.start();
