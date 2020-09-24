@@ -10,9 +10,9 @@ namespace Signals.Services
     {
         private static Dictionary<string, string> _users = new Dictionary<string, string>();
 
-        public async Task Send(string message)
+        public Task Send(string message)
         {
-            await this.Clients.All.SendAsync("Send", message, _users[Context.ConnectionId]);
+            return this.Clients.All.SendAsync("Send", message, _users[Context.ConnectionId]);
         }
 
         public override async Task OnConnectedAsync()
@@ -26,6 +26,7 @@ namespace Signals.Services
             await this.Clients.All.SendAsync("NewUser", _users[Context.ConnectionId]);
             await base.OnConnectedAsync();
         }
+
         public override async Task OnDisconnectedAsync(Exception exception)
         {
             await this.Clients.All.SendAsync("UserLeft", _users[Context.ConnectionId]);
