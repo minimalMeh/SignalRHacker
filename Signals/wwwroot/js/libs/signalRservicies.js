@@ -4,6 +4,7 @@ class HubService {
     };
 }; ;class ChatService extends HubService {
     queryStringForInput = 'input[name="new_message"]';
+
     addNewMessage = (messageContent) => {
         const message = document.createElement("p");
         message.classList.add("content_chat--content--message");
@@ -19,6 +20,9 @@ class HubService {
     };
 }
  ;class UserService extends HubService {
+
+    static CurrenctUser = null;
+
     onUserEntered = (userName) => {
         const userData = document.createElement("p");
         userData.classList.add("users_list--user");
@@ -35,10 +39,11 @@ class HubService {
         userListItem.removeChild(userItem);
     };
 
-    getConnectedUsers = () => {
-        if (sessionStorage.getItem("users") !== null && sessionStorage.getItem("users") !== undefined) {
-            const users = Array.from(sessionStorage.getItem("users"));
-            users.forEach(u => addNewUser(u));
-        }
+    getConnectedUsers = (users) => {
+        users.forEach(u => {
+            if (u !== CurrenctUser) {
+                onUserEntered(u)
+            }
+        });
     };
 };

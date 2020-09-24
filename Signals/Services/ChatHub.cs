@@ -23,7 +23,8 @@ namespace Signals.Services
             }
 
             _users[Context.ConnectionId] = "an0n #" + _users.Count;
-            await this.Clients.All.SendAsync("NewUser", _users[Context.ConnectionId]);
+            await this.Clients.Client(Context.ConnectionId).SendAsync("AllConnectedUsers", _users);
+            await this.Clients.All.SendAsync("NewUser", _users.Values.SelectMany(x => x).ToList());
             await base.OnConnectedAsync();
         }
 

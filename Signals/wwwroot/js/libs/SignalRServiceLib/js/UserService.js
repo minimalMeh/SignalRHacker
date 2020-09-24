@@ -1,5 +1,11 @@
 class UserService extends HubService {
+
+    static CurrenctUser = null;
+
     onUserEntered = (userName) => {
+        if (CurrenctUser === null) {
+            CurrenctUser = userName;
+        }
         const userData = document.createElement("p");
         userData.classList.add("users_list--user");
         userData.appendChild(document.createTextNode(userName));
@@ -15,11 +21,11 @@ class UserService extends HubService {
         userListItem.removeChild(userItem);
     };
 
-    getConnectedUsers = () => {
-        // TODO: override it.
-        if (sessionStorage.getItem("users") !== null && sessionStorage.getItem("users") !== undefined) {
-            const users = Array.from(sessionStorage.getItem("users"));
-            users.forEach(u => addNewUser(u));
-        }
+    getConnectedUsers = (users) => {
+        users.forEach(u => {
+            if (u !== CurrenctUser) {
+                onUserEntered(u)
+            }
+        });
     };
 };
