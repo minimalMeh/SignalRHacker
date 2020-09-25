@@ -1,6 +1,6 @@
 ﻿const queryStringForInput = 'input[name="new_message"]';
 
-const hubConnection = new signalR.HubConnectionBuilder().withUrl("/chat").build();
+const hubConnection = new signalR.HubConnectionBuilder().withUrl("/chat").withAutomaticReconnect().build();
 const chatService = new ChatService(hubConnection);
 const userService = new UserService(hubConnection);
 
@@ -18,16 +18,14 @@ document.querySelector(queryStringForInput).addEventListener("keyup", event => {
     }
 });
 
-hubConnection.on("Send", (data, userName) => {
-    chatService.addNewMessage(userName + " : " + data);
-});
+hubConnection.on("Send", (data, userName) => chatService.addNewMessage(userName + " : " + data));
 
 hubConnection.on("NewUser", userService.onUserEntered);
 
 hubConnection.on("UserLeft", userService.onUserLeft);
 
-userService.getConnectedUsers();
+hubConnection.on("GetConnectedUsers", userService.getConnectedUsers);
 
-chatService.getSavedMessages();
+hubConnection.on("HubLoaded", () => hubConnection.invoke("GetConnectedUsers"));
 
 hubConnection.start();
