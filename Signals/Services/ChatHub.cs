@@ -15,6 +15,12 @@ namespace Signals.Services
             return this.Clients.All.SendAsync("Send", message, _users[Context.ConnectionId]);
         }
 
+        public async Task GetConnectedUsers()
+        {
+            var connectedUsers = _users.Where(x => x.Key != Context.ConnectionId).Select(x => x.Value).ToList();
+            await this.Clients.Client(Context.ConnectionId).SendAsync("GetConnectedUsers", connectedUsers);
+        }
+
         public override async Task OnConnectedAsync()
         {
             if (_users.Keys.Contains(Context.ConnectionId))
@@ -23,8 +29,8 @@ namespace Signals.Services
             }
 
             _users[Context.ConnectionId] = "an0n #" + _users.Count;
-            await this.Clients.Client(Context.ConnectionId).SendAsync("AllConnectedUsers", _users);
-            await this.Clients.All.SendAsync("NewUser", _users.Values.SelectMany(x => x).ToList());
+            await this.Clients.All.SendAsync("NewUser", _users[Context.ConnectionId]);
+            await this.Clients.Client(Context.ConnectionId).SendAsync("HubLoaded");
             await base.OnConnectedAsync();
         }
 

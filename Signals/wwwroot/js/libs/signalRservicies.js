@@ -21,8 +21,6 @@ class HubService {
 }
  ;class UserService extends HubService {
 
-    static CurrenctUser = null;
-
     onUserEntered = (userName) => {
         const userData = document.createElement("p");
         userData.classList.add("users_list--user");
@@ -40,10 +38,6 @@ class HubService {
     };
 
     getConnectedUsers = (users) => {
-        users.forEach(u => {
-            if (u !== CurrenctUser) {
-                onUserEntered(u)
-            }
-        });
+        users.forEach(u => this.onUserEntered(u));
     };
 };
