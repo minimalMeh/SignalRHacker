@@ -148,3 +148,23 @@ main {
     ::-webkit-scrollbar-thumb:hover {
         background: rgb(192, 255, 208);
     }
+
+
+    /*----------------------------------------------*/
+
+
+#ohimark {
+
+}
+
+.screamer {
+    background-color: black;
+    background-image: url("../img/gift.png");
+    /* Full height */
+    height: 100%;
+    /* Center and scale the image nicely */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+
+}
