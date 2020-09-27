@@ -166,5 +166,23 @@ main {
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
+    animation: mark .2s linear .2s infinite alternate;
+}
 
+@keyframes mark {
+    0% {
+        height: 100%;
+    }
+
+    30% {
+        height: 300%;
+    }
+
+    66% {
+        height: 100%;
+    }
+
+    100% {
+        height: 200%;
+    }
 }
