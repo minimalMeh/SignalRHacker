@@ -233,3 +233,39 @@ a, a:visited, a:hover {
         overflow-y: scroll;
     }
 }
+
+/*----------------------------------------------*/
+
+
+#ohimark {
+}
+
+.screamer {
+    background-color: black;
+    background-image: url("../img/gift.png");
+    /* Full height */
+    height: 100%;
+    /* Center and scale the image nicely */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    animation: mark .2s linear .2s infinite alternate;
+}
+
+@keyframes mark {
+    0% {
+        height: 100%;
+    }
+
+    30% {
+        height: 300%;
+    }
+
+    66% {
+        height: 100%;
+    }
+
+    100% {
+        height: 200%;
+    }
+}
