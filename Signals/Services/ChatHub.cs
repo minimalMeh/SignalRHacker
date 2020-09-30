@@ -37,6 +37,7 @@ namespace Signals.Services
         public override async Task OnDisconnectedAsync(Exception exception)
         {
             await this.Clients.All.SendAsync("UserLeft", _users[Context.ConnectionId]);
+            _users.Remove(Context.ConnectionId);
             await base.OnDisconnectedAsync(exception);
         }
     }
