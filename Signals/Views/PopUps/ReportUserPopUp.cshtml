@@ -1,11 +1,12 @@
 ﻿<!-- Modal Section -->
+@model SelectListItem
 
 <div class="bg-modal">
     <div class="modal-contents">
         <div class="close">+</div>
         <form action="">
-            
-            <input type="email" placeholder="E-Mail">
+            @*@Html.DropDownListFor( el => el.Text , ViewBag.Options as IEnumerable<SelectListItem>, "SelectUser")*@
+            @*<select name="authorId" asp-items="ViewBag.Options"></select>*@
             <a href="#" class="button">Submit</a>
         </form>
     </div>

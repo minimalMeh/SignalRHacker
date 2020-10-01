@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
@@ -19,10 +20,8 @@ namespace Signals.Controllers
         private readonly IHubContext<ChatHub> _hub;
         private readonly IUserService _userService;
 
-        [BindProperty]
-        public int SelectedTag { get; set; }
-        public SelectList TagOptions { get; set; }
-
+        //[BindProperty]
+        //public ObservableCollection<SelectListItem> Options { get; set; } = new ObservableCollection<SelectListItem>();
 
         public HomeController(ILogger<HomeController> logger, IHubContext<ChatHub> hub, IUserService userService)
         {
@@ -34,7 +33,12 @@ namespace Signals.Controllers
 
         private void OnUsersChanged(object sender, EventArgs e)
         {
-            this.ViewBag.Users = this._userService.Users.Select(i => i.Value);
+            this.ViewBag.Options = new ObservableCollection<SelectListItem>(this._userService.Users.Select(i =>
+                        new SelectListItem
+                        {
+                            Value = i.Key,
+                            Text = i.Value
+                        }));
         }
 
         public IActionResult Index()
