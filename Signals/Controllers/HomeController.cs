@@ -29,16 +29,16 @@ namespace Signals.Controllers
             _logger = logger;
             _hub = hub;
             _userService = userService;
+            _userService.UsersCountChanged += OnUsersChanged;
         }
 
-        //private void OnUsersChanged(object sender, EventArgs e)
-        //{
-        //    //
-        //}
+        private void OnUsersChanged(object sender, EventArgs e)
+        {
+            this.ViewBag.Users = this._userService.Users.Select(i => i.Value);
+        }
 
         public IActionResult Index()
         {
-            this.ViewBag.Users = this._userService.Users.Select(i => i.Value);
             return View();
         }
 
