@@ -2,6 +2,7 @@
 # compiled source #
 ###################
 *.vs
+*node_modules
 *.com
 *.class
 *.dll

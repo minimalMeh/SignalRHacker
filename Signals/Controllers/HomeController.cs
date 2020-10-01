@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.SignalR;
 using Microsoft.Extensions.Logging;
+using Signals.Interfaces;
 using Signals.Models;
 using Signals.Services;
 
@@ -15,22 +16,29 @@ namespace Signals.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-        private readonly Hub _hub;
+        private readonly IHubContext<ChatHub> _hub;
+        private readonly IUserService _userService;
 
         [BindProperty]
         public int SelectedTag { get; set; }
         public SelectList TagOptions { get; set; }
 
 
-        public HomeController(ILogger<HomeController> logger, Hub hub)
+        public HomeController(ILogger<HomeController> logger, IHubContext<ChatHub> hub, IUserService userService)
         {
             _logger = logger;
             _hub = hub;
+            _userService = userService;
         }
+
+        //private void OnUsersChanged(object sender, EventArgs e)
+        //{
+        //    //
+        //}
 
         public IActionResult Index()
         {
-            this.ViewBag.Users = (this._hub as ChatHub).Users;
+            this.ViewBag.Users = this._userService.Users.Select(i => i.Value);
             return View();
         }
 

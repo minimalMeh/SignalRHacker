@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.SignalR;
+using Signals.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,47 +9,44 @@ namespace Signals.Services
 {
     public class ChatHub : Hub
     {
-        private static Dictionary<string, string> _users = new Dictionary<string, string>();
+        private readonly IUserService _userService;
 
-        public event EventHandler OnNewUserConnected;
-        
-        public IEnumerable<string> Users
+        public ChatHub(IUserService userService) : base()
         {
-            get
-            {
-                return _users.Select(i => i.Value);
-            }
+            this._userService = userService;
         }
+
+        //public event EventHandler OnUsersChanged;
 
         public Task Send(string message)
         {
-            return this.Clients.All.SendAsync("Send", message, _users[Context.ConnectionId]);
+            return this.Clients.All.SendAsync("Send", message, this._userService.Users[Context.ConnectionId]);
         }
 
         public async Task GetConnectedUsers()
         {
-            var connectedUsers = _users.Where(x => x.Key != Context.ConnectionId).Select(x => x.Value).ToList();
+            var connectedUsers = this._userService.Users.Where(x => x.Key != Context.ConnectionId).Select(x => x.Value).ToList();
             await this.Clients.Client(Context.ConnectionId).SendAsync("GetConnectedUsers", connectedUsers);
         }
 
         public override async Task OnConnectedAsync()
         {
-            if (_users.Keys.Contains(Context.ConnectionId))
+            if (this._userService.Users.Keys.Contains(Context.ConnectionId))
             {
                 return;
             }
 
-            _users[Context.ConnectionId] = "an0n #" + _users.Count;
-            await this.Clients.All.SendAsync("NewUser", _users[Context.ConnectionId]);
+            this._userService.Users[Context.ConnectionId] = "an0n #" + this._userService.Users.Count;
+            await this.Clients.All.SendAsync("NewUser", this._userService.Users[Context.ConnectionId]);
             await this.Clients.Client(Context.ConnectionId).SendAsync("HubLoaded");
-            this.OnNewUserConnected?.Invoke(this, new EventArgs());
+            //this.OnUsersChanged?.Invoke(this, new EventArgs());
             await base.OnConnectedAsync();
         }
 
         public override async Task OnDisconnectedAsync(Exception exception)
         {
-            await this.Clients.All.SendAsync("UserLeft", _users[Context.ConnectionId]);
-            _users.Remove(Context.ConnectionId);
+            await this.Clients.All.SendAsync("UserLeft", this._userService.Users[Context.ConnectionId]);
+            this._userService.Users.Remove(Context.ConnectionId);
             await base.OnDisconnectedAsync(exception);
         }
     }

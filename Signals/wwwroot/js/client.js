@@ -1,5 +1,13 @@
 ﻿const queryStringForInput = 'input[name="new_message"]';
 
+document.querySelector("#reportUser").addEventListener("click", () => {
+    document.querySelector('.bg-modal').style.display = "flex";
+});
+
+document.querySelector(".close").addEventListener("click", () => {
+    document.querySelector('.bg-modal').style.display = "none";
+});
+
 const hubConnection = new signalR.HubConnectionBuilder().withUrl("/chat").withAutomaticReconnect().build();
 const chatService = new ChatService(hubConnection);
 const userService = new UserService(hubConnection);
