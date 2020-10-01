@@ -3,6 +3,11 @@
     src: url("../fonts/Pixeled.ttf");
 }
 
+:root {
+    --light: rgb(192, 252, 204, .5);
+    --text: rgb(81, 255, 0);
+}
+
 html, body {
     height: 100%;
 }
@@ -78,6 +83,28 @@ a, a:visited, a:hover {
     text-align: center;
     font-size: 5pt;
 }
+
+.reportUser > button {
+    margin-top: 10px;
+    font-family: Consolas;
+    display: block;
+    cursor: pointer;
+    outline: none;
+    border: none;
+    background-color: var(--light);
+    width: 60%;
+    height: 55px;
+    border-radius: 30px;
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--text);
+    background-size: 100% 100%;
+    margin-bottom: 15px;
+}
+
+    .reportUser > button:hover {
+        border: solid white 3px;
+    }
 
 .blink {
     animation: blink-animation .2s infinite;

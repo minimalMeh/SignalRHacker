@@ -19,6 +19,10 @@
         </section>
     </main>
     <section class="users">
+        <div class="reportUser">
+            <button>report user</button>
+            @{ Html.RenderPartial("~/Views/PopUps/ReportUserPopUp.cshtml"); }
+        </div>
         <div class="users_list">
         </div>
     </section>
