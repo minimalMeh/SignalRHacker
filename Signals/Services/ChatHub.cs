@@ -10,6 +10,16 @@ namespace Signals.Services
     {
         private static Dictionary<string, string> _users = new Dictionary<string, string>();
 
+        public event EventHandler OnNewUserConnected;
+        
+        public IEnumerable<string> Users
+        {
+            get
+            {
+                return _users.Select(i => i.Value);
+            }
+        }
+
         public Task Send(string message)
         {
             return this.Clients.All.SendAsync("Send", message, _users[Context.ConnectionId]);
@@ -31,6 +41,7 @@ namespace Signals.Services
             _users[Context.ConnectionId] = "an0n #" + _users.Count;
             await this.Clients.All.SendAsync("NewUser", _users[Context.ConnectionId]);
             await this.Clients.Client(Context.ConnectionId).SendAsync("HubLoaded");
+            this.OnNewUserConnected?.Invoke(this, new EventArgs());
             await base.OnConnectedAsync();
         }
 
