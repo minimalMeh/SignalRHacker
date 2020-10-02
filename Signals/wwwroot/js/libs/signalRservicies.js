@@ -42,7 +42,7 @@ class HubService {
     };
 
      onReportUserSelect = () => {
-         const usersSelect = document.querySelector("#reportUserSelect");
+         const usersSelect = document.querySelector("#standard-select");
          usersSelect.innerHTML = "";
          fetch("Home/UpdateUsers")
              .then(respose => respose.json())
@@ -55,5 +55,5 @@ class HubService {
                      usersSelect.appendChild(opt);
                  });
              });
-     };
+     }
 };

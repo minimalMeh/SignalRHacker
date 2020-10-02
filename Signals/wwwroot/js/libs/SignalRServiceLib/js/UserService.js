@@ -28,7 +28,7 @@ class UserService extends HubService {
             .then(data => {
                 const users = Array.from(data.users);
                 users.forEach(i => {
-                    var opt = document.createElement("option");
+                    var opt = document.createElement("li");
                     opt.value = i.value;
                     opt.innerHTML = i.text;
                     usersSelect.appendChild(opt);
