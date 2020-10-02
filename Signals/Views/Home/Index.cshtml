@@ -19,10 +19,17 @@
         </section>
     </main>
     <section class="users">
+        <div class="reportUser">
+            <button id="reportUser">report user</button>
+        </div>
         <div class="users_list">
         </div>
     </section>
 </div>
+
+
+@{ Html.RenderPartial("Screamer"); }
+@{ Html.RenderPartial("~/Views/PopUps/ReportUserPopUp.cshtml"); }
 
 @section Scripts {
     <script src="~/js/signalr/dist/browser/signalr.min.js"></script>

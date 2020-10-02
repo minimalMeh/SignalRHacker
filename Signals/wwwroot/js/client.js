@@ -4,6 +4,15 @@ const hubConnection = new signalR.HubConnectionBuilder().withUrl("/chat").withAu
 const chatService = new ChatService(hubConnection);
 const userService = new UserService(hubConnection);
 
+document.querySelector("#reportUser").addEventListener("click", () => {
+    userService.onReportUserSelect();
+    document.querySelector('.bg-modal').style.display = "flex";
+});
+
+document.querySelector(".close").addEventListener("click", () => {
+    document.querySelector('.bg-modal').style.display = "none";
+});
+
 document.querySelector(queryStringForInput).addEventListener("keyup", event => {
     const inputMessage = document.querySelector(queryStringForInput);
     if (inputMessage.value === null || inputMessage.value === undefined

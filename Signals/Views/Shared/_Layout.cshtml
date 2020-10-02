@@ -5,14 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - Signals</title>
     <link href="@Url.Content("~/css/style.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/css/popup.css")" rel="stylesheet" type="text/css" />
 </head>
 <body>
     @RenderBody()
-    <footer class="footer">
-        <div>
-            <a asp-area="" asp-controller="Home" asp-action="Privacy">< it's a screamer, be careful ></a>
-        </div>
-    </footer>
     @RenderSection("Scripts", false )
 </body>
 </html>
