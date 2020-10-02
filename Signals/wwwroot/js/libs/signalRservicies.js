@@ -40,4 +40,20 @@ class HubService {
     getConnectedUsers = (users) => {
         users.forEach(u => this.onUserEntered(u));
     };
+
+     onReportUserSelect = () => {
+         const usersSelect = document.querySelector("#reportUserSelect");
+         usersSelect.innerHTML = "";
+         fetch("Home/UpdateUsers")
+             .then(respose => respose.json())
+             .then(data => {
+                 const users = Array.from(data.users);
+                 users.forEach(i => {
+                     var opt = document.createElement("option");
+                     opt.value = i.value;
+                     opt.innerHTML = i.text;
+                     usersSelect.appendChild(opt);
+                 });
+             });
+     };
 };

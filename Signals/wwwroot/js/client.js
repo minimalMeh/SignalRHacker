@@ -1,29 +1,17 @@
 ﻿const queryStringForInput = 'input[name="new_message"]';
 
+const hubConnection = new signalR.HubConnectionBuilder().withUrl("/chat").withAutomaticReconnect().build();
+const chatService = new ChatService(hubConnection);
+const userService = new UserService(hubConnection);
+
 document.querySelector("#reportUser").addEventListener("click", () => {
-    const usersSelect = document.querySelector("#reportUserSelect");
-    usersSelect.innerHTML = "";
-    fetch("Home/UpdateUsers")
-        .then(respose => respose.json())
-        .then(data => {
-            const users = Array.from(data.users);
-            users.forEach(i => {
-                var opt = document.createElement("option");
-                opt.value = i.value;
-                opt.innerHTML = i.text;
-                usersSelect.appendChild(opt);
-            });
-        });
+    userService.onReportUserSelect();
     document.querySelector('.bg-modal').style.display = "flex";
 });
 
 document.querySelector(".close").addEventListener("click", () => {
     document.querySelector('.bg-modal').style.display = "none";
 });
-
-const hubConnection = new signalR.HubConnectionBuilder().withUrl("/chat").withAutomaticReconnect().build();
-const chatService = new ChatService(hubConnection);
-const userService = new UserService(hubConnection);
 
 document.querySelector(queryStringForInput).addEventListener("keyup", event => {
     const inputMessage = document.querySelector(queryStringForInput);
