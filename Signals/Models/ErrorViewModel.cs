@@ -1,5 +1,3 @@
-using System;
-
 namespace Signals.Models
 {
     public class ErrorViewModel
