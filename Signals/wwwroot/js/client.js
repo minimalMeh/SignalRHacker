@@ -1,6 +1,19 @@
 ﻿const queryStringForInput = 'input[name="new_message"]';
 
 document.querySelector("#reportUser").addEventListener("click", () => {
+    const usersSelect = document.querySelector("#reportUserSelect");
+    usersSelect.innerHTML = "";
+    fetch("Home/UpdateUsers")
+        .then(respose => respose.json())
+        .then(data => {
+            const users = Array.from(data.users);
+            users.forEach(i => {
+                var opt = document.createElement("option");
+                opt.value = i.value;
+                opt.innerHTML = i.text;
+                usersSelect.appendChild(opt);
+            });
+        });
     document.querySelector('.bg-modal').style.display = "flex";
 });
 

@@ -1,12 +1,10 @@
 ﻿<!-- Modal Section -->
-@model SelectListItem
 
 <div class="bg-modal">
     <div class="modal-contents">
         <div class="close">+</div>
-        <form action="">
-            @*@Html.DropDownListFor( el => el.Text , ViewBag.Options as IEnumerable<SelectListItem>, "SelectUser")*@
-            @*<select name="authorId" asp-items="ViewBag.Options"></select>*@
+        <form class="form-control" action="">
+            <select id="reportUserSelect"></select>
             <a href="#" class="button">Submit</a>
         </form>
     </div>

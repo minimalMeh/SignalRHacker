@@ -5,7 +5,9 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Formatters;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.AspNetCore.Server.IIS.Core;
 using Microsoft.AspNetCore.SignalR;
 using Microsoft.Extensions.Logging;
 using Signals.Interfaces;
@@ -20,9 +22,6 @@ namespace Signals.Controllers
         private readonly IHubContext<ChatHub> _hub;
         private readonly IUserService _userService;
 
-        //[BindProperty]
-        //public ObservableCollection<SelectListItem> Options { get; set; } = new ObservableCollection<SelectListItem>();
-
         public HomeController(ILogger<HomeController> logger, IHubContext<ChatHub> hub, IUserService userService)
         {
             _logger = logger;
@@ -33,16 +32,26 @@ namespace Signals.Controllers
 
         private void OnUsersChanged(object sender, EventArgs e)
         {
-            this.ViewBag.Options = new ObservableCollection<SelectListItem>(this._userService.Users.Select(i =>
-                        new SelectListItem
-                        {
-                            Value = i.Key,
-                            Text = i.Value
-                        }));
+            UpdateUsers();
+        }
+
+        [HttpGet]
+        public UsersViewModel UpdateUsers()
+        {
+            ModelState.Clear();
+            var usersViewModel = new UsersViewModel();
+            usersViewModel.Users =  new List<SelectListItem>(this._userService.Users.Select(i =>
+            new SelectListItem
+            {
+                Value = i.Key,
+                Text = i.Value
+            }));
+            return usersViewModel;
         }
 
         public IActionResult Index()
         {
+            this.OnUsersChanged(this._userService, null);
             return View();
         }
 

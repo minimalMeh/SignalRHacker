@@ -16,8 +16,6 @@ namespace Signals.Services
             this._userService = userService;
         }
 
-        //public event EventHandler OnUsersChanged;
-
         public Task Send(string message)
         {
             return this.Clients.All.SendAsync("Send", message, this._userService.Users[Context.ConnectionId]);
@@ -39,7 +37,6 @@ namespace Signals.Services
             this._userService.Users[Context.ConnectionId] = "an0n #" + this._userService.Users.Count;
             await this.Clients.All.SendAsync("NewUser", this._userService.Users[Context.ConnectionId]);
             await this.Clients.Client(Context.ConnectionId).SendAsync("HubLoaded");
-            //this.OnUsersChanged?.Invoke(this, new EventArgs());
             await base.OnConnectedAsync();
         }
 
