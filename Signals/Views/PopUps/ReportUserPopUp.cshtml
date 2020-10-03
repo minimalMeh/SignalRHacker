@@ -3,14 +3,14 @@
 <div class="bg-modal">
     <div class="modal-contents">
         <div class="close">+</div>
-        <form class="form-control" action="">
+        <form name="reportUserForm" class="form-control" action="" method="post">
             <div class="select">
-                <select id="standard-select">
+                <select name="reportedUser" id="standard-select">
                 </select>
                 <span class="focus"></span>
             </div>
-            <textarea placeholder="Remember, be nice!" cols="30" rows="11"></textarea>
-            <a href="#" class="button">Submit</a>
+            <textarea name="reportDescription" placeholder="Remember, be nice!" cols="30" rows="10"></textarea>
+            <input type="submit" value="report"/>
         </form>
     </div>
 </div>

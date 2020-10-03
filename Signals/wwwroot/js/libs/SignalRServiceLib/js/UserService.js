@@ -20,19 +20,28 @@ class UserService extends HubService {
         users.forEach(u => this.onUserEntered(u));
     };
 
-    onReportUserSelect = () => {
-        const usersSelect = document.querySelector("#reportUserSelect");
+    loadUsersForReport = () => {
+        const usersSelect = document.querySelector("#standard-select");
         usersSelect.innerHTML = "";
         fetch("Home/UpdateUsers")
             .then(respose => respose.json())
             .then(data => {
                 const users = Array.from(data.users);
                 users.forEach(i => {
-                    var opt = document.createElement("li");
+                    var opt = document.createElement("option");
                     opt.value = i.value;
                     opt.innerHTML = i.text;
                     usersSelect.appendChild(opt);
                 });
             });
+    };
+
+    reportUser = () => {
+        const form = document.querySelector('form[name="reportUserForm"]');
+        const selectedUserHtmlSelect = form.querySelector('select[name="reportedUser"]');
+        const user = selectedUserHtmlSelect.options[selectedUserHtmlSelect.selectedIndex].value;
+        const description = form.querySelector('textarea[name="reportDescription"]').value;
+        this.hub.invoke("ReportUser", [user, description]);
+        document.querySelector('.bg-modal').style.display = "none";
     };
 };

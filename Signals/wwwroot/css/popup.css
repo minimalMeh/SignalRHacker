@@ -98,3 +98,17 @@ textarea {
     border: 1px solid rgba(0, 0, 255, .2);
     box-shadow: 10px 4px 2px 0 rgba(0, 255, 0, .09);
 }
+
+input[type=submit] {
+    width: 100%;
+    margin: 2px 0;
+    padding: 2px;
+    background-color: #fff;
+    border: 1px solid rgba(0, 0, 255, .2);
+    box-shadow: 10px 4px 2px 0 rgba(0, 255, 0, .09);
+    text-decoration: none;
+    cursor: pointer;
+    font-family: inherit;
+    border-radius: 0.25em;
+    font-size: 10pt;
+}
