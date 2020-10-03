@@ -20,7 +20,7 @@ class UserService extends HubService {
         users.forEach(u => this.onUserEntered(u));
     };
 
-    onReportUserSelect = () => {
+    loadUsersForReport = () => {
         const usersSelect = document.querySelector("#standard-select");
         usersSelect.innerHTML = "";
         fetch("Home/UpdateUsers")
@@ -34,5 +34,14 @@ class UserService extends HubService {
                     usersSelect.appendChild(opt);
                 });
             });
-    }
+    };
+
+    reportUser = () => {
+        const form = document.querySelector('form[name="reportUserForm"]');
+        const selectedUserHtmlSelect = form.querySelector('select[name="reportedUser"]');
+        const user = selectedUserHtmlSelect.options[selectedUserHtmlSelect.selectedIndex].value;
+        const description = form.querySelector('textarea[name="reportDescription"]').value;
+        this.hub.invoke("ReportUser", [user, description]);
+        document.querySelector('.bg-modal').style.display = "none";
+    };
 };

@@ -6,42 +6,65 @@ class HubService {
     queryStringForInput = 'input[name="new_message"]';
 
     addNewMessage = (messageContent) => {
-        const message = document.createElement("p");
-        message.classList.add("content_chat--content--message");
-        const content = messageContent;
-        message.appendChild(document.createTextNode(content));
-        const firstElement = document.querySelector(".content_chat--content").firstChild;
-        document.querySelector(".content_chat--content").insertBefore(message, firstElement);
+        const elem = this.createMessageElement(messageContent);
+        this.insertNewMessage(elem);
     };
 
     sendNewMessage = () => {
-        let message = document.querySelector(queryStringForInput).value;
-        this.hub.invoke("Send", message);
+        const inputMessage = document.querySelector(this.queryStringForInput);
+        if (inputMessage.value === null || inputMessage.value === undefined
+            || inputMessage.value === "" || inputMessage.value === "õä"
+            || !inputMessage.value.trim().length) {
+            return;
+        }
+
+        if (event.keyCode === 13) {
+            let message = document.querySelector(this.queryStringForInput).value;
+            this.hub.invoke("Send", message);
+            document.querySelector(this.queryStringForInput).value = "";
+        }
+    };
+
+    addAlertMessage = (messageContent) => {
+        const elem = this.createMessageElement(messageContent);
+        elem.classList.add("reportText");
+        this.insertNewMessage(elem);
+    };
+
+    createMessageElement = (message) => {
+        const element = document.createElement("p");
+        element.classList.add("content_chat--content--message");
+        element.appendChild(document.createTextNode(message));
+        return element;
+    };
+
+    insertNewMessage = (messageElement) => {
+        const firstElement = document.querySelector(".content_chat--content").firstChild;
+        document.querySelector(".content_chat--content").insertBefore(messageElement, firstElement);
     };
 }
  ;class UserService extends HubService {
+     onUserEntered = (userName) => {
+         const userData = document.createElement("p");
+         userData.classList.add("users_list--user");
+         userData.appendChild(document.createTextNode(userName));
+         const usersList = document.querySelector(".users_list");
+         const lastElement = usersList.lastChild;
+         usersList.insertBefore(userData, lastElement);
+     };
 
-    onUserEntered = (userName) => {
-        const userData = document.createElement("p");
-        userData.classList.add("users_list--user");
-        userData.appendChild(document.createTextNode(userName));
-        const usersList = document.querySelector(".users_list");
-        const lastElement = usersList.lastChild;
-        usersList.insertBefore(userData, lastElement);
-    };
+     onUserLeft = (userName) => {
+         const userListItem = document.querySelector(".users_list");
+         const usersItem = Array.from(userListItem.querySelectorAll('.users_list--user'));
+         const userItem = usersItem.filter(item => item.innerHTML.includes(userName))[0];
+         userListItem.removeChild(userItem);
+     };
 
-    onUserLeft = (userName) => {
-        const userListItem = document.querySelector(".users_list");
-        const usersItem = Array.from(userListItem.querySelectorAll('.users_list--user'));
-        const userItem = usersItem.filter(item => item.innerHTML.includes(userName))[0];
-        userListItem.removeChild(userItem);
-    };
+     getConnectedUsers = (users) => {
+         users.forEach(u => this.onUserEntered(u));
+     };
 
-    getConnectedUsers = (users) => {
-        users.forEach(u => this.onUserEntered(u));
-    };
-
-     onReportUserSelect = () => {
+     loadUsersForReport = () => {
          const usersSelect = document.querySelector("#standard-select");
          usersSelect.innerHTML = "";
          fetch("Home/UpdateUsers")
@@ -55,5 +78,14 @@ class HubService {
                      usersSelect.appendChild(opt);
                  });
              });
-     }
+     };
+
+     reportUser = () => {
+         const form = document.querySelector('form[name="reportUserForm"]');
+         const selectedUserHtmlSelect = form.querySelector('select[name="reportedUser"]');
+         const user = selectedUserHtmlSelect.options[selectedUserHtmlSelect.selectedIndex].value;
+         const description = form.querySelector('textarea[name="reportDescription"]').value;
+         this.hub.invoke("ReportUser", [user, description]);
+         document.querySelector('.bg-modal').style.display = "none";
+     };
 };

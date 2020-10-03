@@ -106,6 +106,10 @@ a, a:visited, a:hover {
         border: solid white 3px;
     }
 
+.reportText {
+    color: red;
+}
+
 .blink {
     animation: blink-animation .2s infinite;
     -webkit-animation: blink-animation .2s infinite;

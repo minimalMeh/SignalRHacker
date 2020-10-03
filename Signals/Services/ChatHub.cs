@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.SignalR;
 using Signals.Interfaces;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -20,10 +21,17 @@ namespace Signals.Services
             return this.Clients.All.SendAsync("Send", message, this._userService.Users[Context.ConnectionId]);
         }
 
-        public async Task GetConnectedUsers()
+        public Task GetConnectedUsers()
         {
             var connectedUsers = this._userService.Users.Where(x => x.Key != Context.ConnectionId).Select(x => x.Value).ToList();
-            await this.Clients.Client(Context.ConnectionId).SendAsync("GetConnectedUsers", connectedUsers);
+            return this.Clients.Client(Context.ConnectionId).SendAsync("GetConnectedUsers", connectedUsers);
+        }
+
+        public async Task ReportUser(List<string> items)
+        {
+            var clientId = items[0].Replace("\"", "");
+            var message = items[1].Replace("\"", "");
+            await this.Clients.Client(clientId).SendAsync("ReportUser", message);
         }
 
         public override async Task OnConnectedAsync()

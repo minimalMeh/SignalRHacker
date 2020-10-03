@@ -2,16 +2,40 @@ class ChatService extends HubService {
     queryStringForInput = 'input[name="new_message"]';
 
     addNewMessage = (messageContent) => {
-        const message = document.createElement("p");
-        message.classList.add("content_chat--content--message");
-        const content = messageContent;
-        message.appendChild(document.createTextNode(content));
-        const firstElement = document.querySelector(".content_chat--content").firstChild;
-        document.querySelector(".content_chat--content").insertBefore(message, firstElement);
+        const elem = this.createMessageElement(messageContent);
+        this.insertNewMessage(elem);
     };
 
     sendNewMessage = () => {
-        let message = document.querySelector(queryStringForInput).value;
-        this.hub.invoke("Send", message);
+        const inputMessage = document.querySelector(this.queryStringForInput);
+        if (inputMessage.value === null || inputMessage.value === undefined
+            || inputMessage.value === "" || inputMessage.value === "õä"
+            || !inputMessage.value.trim().length) {
+            return;
+        }
+
+        if (event.keyCode === 13) {
+            let message = document.querySelector(this.queryStringForInput).value;
+            this.hub.invoke("Send", message);
+            document.querySelector(this.queryStringForInput).value = "";
+        }
+    };
+
+    addAlertMessage = (messageContent) => {
+        const elem = this.createMessageElement(messageContent);
+        elem.classList.add("reportText");
+        this.insertNewMessage(elem);
+    };
+
+    createMessageElement = (message) => {
+        const element = document.createElement("p");
+        element.classList.add("content_chat--content--message");
+        element.appendChild(document.createTextNode(message));
+        return element;
+    };
+
+    insertNewMessage = (messageElement) => {
+        const firstElement = document.querySelector(".content_chat--content").firstChild;
+        document.querySelector(".content_chat--content").insertBefore(messageElement, firstElement);
     };
 }
