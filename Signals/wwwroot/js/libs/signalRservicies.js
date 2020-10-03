@@ -87,5 +87,6 @@ class HubService {
          const description = form.querySelector('textarea[name="reportDescription"]').value;
          this.hub.invoke("ReportUser", [user, description]);
          document.querySelector('.bg-modal').style.display = "none";
+         form.querySelector('textarea[name="reportDescription"]').value = "";
      };
 };
