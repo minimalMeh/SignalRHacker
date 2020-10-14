@@ -26,7 +26,10 @@ namespace Signals
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
-            services.AddSignalR();
+            services.AddSignalR(hubOptions =>
+            {
+                hubOptions.EnableDetailedErrors = true;
+            });
             services.AddSingleton<IUserService, UserService>();
         }
 
